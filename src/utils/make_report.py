@@ -20,6 +20,7 @@ SHOTS = REPORTS / "screenshots"
 
 STUDENT = "Akshay Agrawal"
 ROLL = "2025AG05201"
+REPO_URL = "https://github.com/AKbhai18/recommendation-pipeline"
 
 NAVY = (15, 23, 42)
 BLUE = (37, 99, 235)
@@ -36,11 +37,13 @@ class Report(FPDF):
         self.cell(54, 5, f"Roll No: {ROLL}", align="R")
 
     def footer(self):
-        self.set_y(-12)
+        self.set_y(-15)
         self.set_font("Helvetica", "", 8)
         self.set_text_color(150, 155, 165)
-        self.cell(0, 5, f"{STUDENT}  |  {ROLL}  |  Page {self.page_no()}",
-                  align="C")
+        self.cell(0, 4, f"{STUDENT}  |  {ROLL}  |  Page {self.page_no()}",
+                  align="C", new_x="LMARGIN", new_y="NEXT")
+        self.set_text_color(37, 99, 235)
+        self.cell(0, 4, f"Repo: {REPO_URL}", align="C", link=REPO_URL)
 
     # ---- typography helpers ------------------------------------------------
     def h1(self, text):
@@ -187,7 +190,25 @@ def build():
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(*BLUE)
     pdf.multi_cell(0, 6, f"{STUDENT}   |   Roll No: {ROLL}", align="C")
-    pdf.ln(4)
+    pdf.ln(5)
+
+    # ---- Prominent GitHub repository link box (first visible deliverable) ----
+    box_w = 180
+    box_x = (pdf.w - box_w) / 2
+    box_y = pdf.get_y()
+    box_h = 20
+    pdf.set_fill_color(37, 99, 235)
+    pdf.rect(box_x, box_y, box_w, box_h, style="F")
+    pdf.set_xy(box_x, box_y + 3.5)
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_text_color(255, 255, 255)
+    pdf.cell(box_w, 6, "GitHub Repository", align="C")
+    pdf.set_xy(box_x, box_y + 10)
+    pdf.set_font("Helvetica", "BU", 12)
+    pdf.set_text_color(255, 255, 255)
+    pdf.cell(box_w, 6, REPO_URL, align="C", link=REPO_URL)
+    pdf.set_xy(pdf.l_margin, box_y + box_h)
+    pdf.ln(6)
 
     # ---------------- 1. Overview & design ----------------
     pdf.h1("1. Overview and Design Decisions")

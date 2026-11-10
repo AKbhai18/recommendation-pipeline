@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ekgsara/recommendation-pipeline/reports/mlruns/949220184883836104/56ce638aa5ba4257acc781e7125be020/artifacts
+end_time: 1794312619342
+entry_point_name: ''
+experiment_id: '949220184883836104'
+lifecycle_stage: active
+run_id: 56ce638aa5ba4257acc781e7125be020
+run_name: item_based_cf
+run_uuid: 56ce638aa5ba4257acc781e7125be020
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1794312616309
+status: 3
+tags: []
+user_id: ekgsara

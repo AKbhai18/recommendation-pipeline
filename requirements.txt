@@ -1,0 +1,31 @@
+# Core data stack
+pandas==2.0.3
+numpy==1.24.4
+pyarrow==12.0.1          # Parquet storage
+PyYAML==6.0.2            # config loading
+
+# Validation
+pandera==0.17.2          # schema + data-quality checks
+
+# Modelling / evaluation
+scikit-learn==1.3.2      # TruncatedSVD, cosine similarity
+scipy==1.10.1
+
+# Experiment tracking
+mlflow==2.10.2
+
+# Visualisation / reporting
+matplotlib==3.7.5
+seaborn==0.13.2
+pillow==10.4.0
+fpdf2==2.8.3             # final PDF report generation
+
+# ---------------------------------------------------------------------------
+# Orchestration (OPTIONAL):
+# The pipeline runs end-to-end with the pure-Python orchestrator
+# (src/orchestrate.py) using only the packages above. To run it under Apache
+# Airflow instead, install Airflow separately (its dependency pins are strict),
+# e.g.:
+#   pip install "apache-airflow==2.7.3" \
+#     --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.3/constraints-3.8.txt"
+# ---------------------------------------------------------------------------

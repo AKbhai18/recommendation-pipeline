@@ -1,0 +1,6 @@
+artifact_location: file:///home/ekgsara/recommendation-pipeline/reports/mlruns/949220184883836104
+creation_time: 1794312615171
+experiment_id: '949220184883836104'
+last_update_time: 1794312615171
+lifecycle_stage: active
+name: movielens_recsys

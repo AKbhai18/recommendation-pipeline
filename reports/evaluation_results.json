@@ -1,0 +1,35 @@
+[
+  {
+    "model": "popularity_baseline",
+    "precision@10": 0.0224,
+    "recall@10": 0.033,
+    "ndcg@10": 0.0298,
+    "coverage": 0.044,
+    "diversity": 0.8687,
+    "eval_users": 998,
+    "rmse": 0.7074,
+    "mae": 0.5026
+  },
+  {
+    "model": "item_based_cf",
+    "precision@10": 0.0574,
+    "recall@10": 0.0806,
+    "ndcg@10": 0.0746,
+    "coverage": 0.942,
+    "diversity": 0.8734,
+    "eval_users": 998,
+    "rmse": 0.7257,
+    "mae": 0.4398
+  },
+  {
+    "model": "matrix_factorization_svd",
+    "precision@10": 0.0425,
+    "recall@10": 0.0615,
+    "ndcg@10": 0.0623,
+    "coverage": 0.62,
+    "diversity": 0.8705,
+    "eval_users": 998,
+    "rmse": 0.6691,
+    "mae": 0.4426
+  }
+]

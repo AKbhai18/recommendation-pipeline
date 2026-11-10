@@ -1,0 +1,67 @@
+# ---------------------------------------------------------------------------
+# Central configuration for the recommendation data-management pipeline.
+# Every stage reads its settings from here so the run is reproducible and
+# there are no magic numbers scattered through the code.
+# ---------------------------------------------------------------------------
+
+project:
+  name: movielens-recommendation-pipeline
+  seed: 42                     # global random seed -> reproducible runs
+
+paths:
+  raw: data/raw
+  processed: data/processed
+  features: data/features
+  errors: data/errors
+  models: models
+  reports: reports
+  logs: reports/pipeline.log
+
+# Synthetic data generator settings (MovieLens-style explicit ratings).
+data_generation:
+  n_users: 1000
+  n_items: 500
+  n_interactions: 60000
+  rating_scale: [1, 5]         # valid ratings are 1..5 in 0.5 steps
+  # Fraction of rows into which we deliberately inject data-quality problems
+  # so the validation stage has something real to catch.
+  dirty_fraction: 0.03
+  start_date: "2021-01-01"
+  end_date: "2023-12-31"
+  categories:
+    - Action
+    - Comedy
+    - Drama
+    - Horror
+    - Romance
+    - SciFi
+    - Documentary
+    - Thriller
+
+validation:
+  rating_min: 1.0
+  rating_max: 5.0
+  # timestamps outside this window are treated as invalid
+  valid_from: "2000-01-01"
+  valid_to: "2025-12-31"
+
+preparation:
+  # Time-based split: the most recent `test_fraction` of each user's history
+  # is held out for testing (realistic "predict the future" evaluation).
+  test_fraction: 0.2
+  min_interactions_per_user: 5   # drop cold users that cannot be split/eval'd
+
+features:
+  recent_window_days: 90         # window for "recent activity" features
+
+training:
+  mlflow_experiment: movielens_recsys
+  mlflow_tracking_dir: reports/mlruns
+  # Item-based collaborative filtering
+  cf_top_k_neighbours: 50
+  # Matrix factorisation (truncated SVD on the user-item matrix)
+  mf_n_factors: 50
+
+evaluation:
+  k: 10                          # K for Precision@K / Recall@K / NDCG@K
+  relevance_threshold: 4.0       # a test rating >= this counts as "relevant"

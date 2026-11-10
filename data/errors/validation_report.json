@@ -1,0 +1,27 @@
+{
+  "dimensions": [
+    {
+      "table": "users",
+      "rows": 1000,
+      "schema_ok": true,
+      "errors": 0
+    },
+    {
+      "table": "items",
+      "rows": 500,
+      "schema_ok": true,
+      "errors": 0
+    }
+  ],
+  "interactions": {
+    "total_rows": 61800,
+    "clean_rows": 53084,
+    "error_rows": 8716,
+    "missing_rating": 1809,
+    "rating_out_of_range": 1854,
+    "invalid_timestamp": 1848,
+    "unknown_user_id": 0,
+    "unknown_item_id": 1855,
+    "duplicate_interaction": 1595
+  }
+}

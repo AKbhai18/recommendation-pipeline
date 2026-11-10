@@ -1,0 +1,124 @@
+2026-11-10 13:09:40 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:09:40 | INFO    | orchestrator       | PIPELINE RUN STARTED  2026-11-10 13:09:40
+2026-11-10 13:09:40 | INFO    | orchestrator       | Execution order: generate_data -> ingest -> validate -> prepare -> build_features -> train_and_evaluate
+2026-11-10 13:09:40 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:09:40 | INFO    | orchestrator       | >>> STAGE START: generate_data
+2026-11-10 13:09:41 | INFO    | orchestrator       | <<< STAGE DONE : generate_data  (0.31s)
+2026-11-10 13:09:41 | INFO    | orchestrator       | >>> STAGE START: ingest
+2026-11-10 13:09:41 | INFO    | orchestrator       | <<< STAGE DONE : ingest  (0.05s)
+2026-11-10 13:09:41 | INFO    | orchestrator       | >>> STAGE START: validate
+2026-11-10 13:09:41 | INFO    | validation.validate | Validating dimension tables ...
+2026-11-10 13:09:41 | INFO    | validation.validate | [users] schema validation PASSED (rows=1000)
+2026-11-10 13:09:41 | INFO    | validation.validate | [items] schema validation PASSED (rows=500)
+2026-11-10 13:09:41 | INFO    | validation.validate | Validating interactions (row-level) ...
+2026-11-10 13:09:41 | INFO    | validation.validate | Validation done: clean=53084 quarantined=8716 (14.10% bad)
+2026-11-10 13:09:41 | INFO    | orchestrator       | <<< STAGE DONE : validate  (0.21s)
+2026-11-10 13:09:41 | INFO    | orchestrator       | >>> STAGE START: prepare
+2026-11-10 13:09:41 | INFO    | preparation.prepare | Dropped cold users: 53084 -> 53084 rows (min_interactions=5)
+2026-11-10 13:09:41 | INFO    | preparation.prepare | Time-based split: train=42453 test=10631
+2026-11-10 13:09:42 | INFO    | preparation.prepare | Preparation complete. users=1000 items=500 matrix=(1000, 500)
+2026-11-10 13:09:42 | INFO    | orchestrator       | <<< STAGE DONE : prepare  (0.58s)
+2026-11-10 13:09:42 | INFO    | orchestrator       | >>> STAGE START: build_features
+2026-11-10 13:09:42 | INFO    | features.build     | Building features (reference date = 2023-10-14) ...
+2026-11-10 13:09:42 | INFO    | features.build     | Feature store written: users=1000 items=500 interactions=42453
+2026-11-10 13:09:42 | INFO    | orchestrator       | <<< STAGE DONE : build_features  (0.08s)
+2026-11-10 13:09:42 | INFO    | orchestrator       | >>> STAGE START: train_and_evaluate
+2026-11-10 13:09:42 | INFO    | training.train     | Training model: popularity_baseline
+2026-11-10 13:09:43 | INFO    | evaluation.metrics | [popularity_baseline] {'precision@10': 0.0224, 'recall@10': 0.033, 'ndcg@10': 0.0298, 'coverage': 0.044, 'diversity': 0.8687, 'eval_users': 998, 'rmse': 0.7074, 'mae': 0.5026}
+2026-11-10 13:09:43 | INFO    | training.train     | Training model: item_based_cf
+2026-11-10 13:09:46 | INFO    | evaluation.metrics | [item_based_cf] {'precision@10': 0.0574, 'recall@10': 0.0806, 'ndcg@10': 0.0746, 'coverage': 0.942, 'diversity': 0.8734, 'eval_users': 998, 'rmse': 0.7257, 'mae': 0.4398}
+2026-11-10 13:09:46 | INFO    | training.train     | Training model: matrix_factorization_svd
+2026-11-10 13:09:47 | INFO    | evaluation.metrics | [matrix_factorization_svd] {'precision@10': 0.0425, 'recall@10': 0.0615, 'ndcg@10': 0.0623, 'coverage': 0.62, 'diversity': 0.8705, 'eval_users': 998, 'rmse': 0.6691, 'mae': 0.4426}
+2026-11-10 13:09:47 | INFO    | training.train     | Training complete. Results:
+                   model  precision@10  recall@10  ndcg@10  coverage  diversity  eval_users   rmse    mae
+     popularity_baseline        0.0224     0.0330   0.0298     0.044     0.8687         998 0.7074 0.5026
+           item_based_cf        0.0574     0.0806   0.0746     0.942     0.8734         998 0.7257 0.4398
+matrix_factorization_svd        0.0425     0.0615   0.0623     0.620     0.8705         998 0.6691 0.4426
+2026-11-10 13:09:47 | INFO    | orchestrator       | <<< STAGE DONE : train_and_evaluate  (5.62s)
+2026-11-10 13:09:47 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:09:47 | INFO    | orchestrator       | PIPELINE RUN SUCCEEDED  (total 6.85s)
+2026-11-10 13:09:47 | INFO    | orchestrator       |    generate_data          0.31s   [SUCCESS]
+2026-11-10 13:09:47 | INFO    | orchestrator       |    ingest                 0.05s   [SUCCESS]
+2026-11-10 13:09:47 | INFO    | orchestrator       |    validate               0.21s   [SUCCESS]
+2026-11-10 13:09:47 | INFO    | orchestrator       |    prepare                0.58s   [SUCCESS]
+2026-11-10 13:09:47 | INFO    | orchestrator       |    build_features         0.08s   [SUCCESS]
+2026-11-10 13:09:47 | INFO    | orchestrator       |    train_and_evaluate     5.62s   [SUCCESS]
+2026-11-10 13:09:47 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:09:51 | INFO    | validation.validate | Validating dimension tables ...
+2026-11-10 13:09:51 | INFO    | validation.validate | [users] schema validation PASSED (rows=1000)
+2026-11-10 13:09:51 | INFO    | validation.validate | [items] schema validation PASSED (rows=500)
+2026-11-10 13:09:51 | INFO    | validation.validate | Validating interactions (row-level) ...
+2026-11-10 13:09:51 | INFO    | validation.validate | Validation done: clean=53084 quarantined=8716 (14.10% bad)
+2026-11-10 13:09:52 | INFO    | preparation.prepare | Dropped cold users: 53084 -> 53084 rows (min_interactions=5)
+2026-11-10 13:09:52 | INFO    | preparation.prepare | Time-based split: train=42453 test=10631
+2026-11-10 13:09:52 | INFO    | preparation.prepare | Preparation complete. users=1000 items=500 matrix=(1000, 500)
+2026-11-10 13:09:53 | INFO    | features.build     | Building features (reference date = 2023-10-14) ...
+2026-11-10 13:09:53 | INFO    | features.build     | Feature store written: users=1000 items=500 interactions=42453
+2026-11-10 13:09:56 | INFO    | training.train     | Training model: popularity_baseline
+2026-11-10 13:09:57 | INFO    | evaluation.metrics | [popularity_baseline] {'precision@10': 0.0224, 'recall@10': 0.033, 'ndcg@10': 0.0298, 'coverage': 0.044, 'diversity': 0.8687, 'eval_users': 998, 'rmse': 0.7074, 'mae': 0.5026}
+2026-11-10 13:09:57 | INFO    | training.train     | Training model: item_based_cf
+2026-11-10 13:09:59 | INFO    | evaluation.metrics | [item_based_cf] {'precision@10': 0.0574, 'recall@10': 0.0806, 'ndcg@10': 0.0746, 'coverage': 0.942, 'diversity': 0.8734, 'eval_users': 998, 'rmse': 0.7257, 'mae': 0.4398}
+2026-11-10 13:10:00 | INFO    | training.train     | Training model: matrix_factorization_svd
+2026-11-10 13:10:01 | INFO    | evaluation.metrics | [matrix_factorization_svd] {'precision@10': 0.0425, 'recall@10': 0.0615, 'ndcg@10': 0.0623, 'coverage': 0.62, 'diversity': 0.8705, 'eval_users': 998, 'rmse': 0.6691, 'mae': 0.4426}
+2026-11-10 13:10:01 | INFO    | training.train     | Training complete. Results:
+                   model  precision@10  recall@10  ndcg@10  coverage  diversity  eval_users   rmse    mae
+     popularity_baseline        0.0224     0.0330   0.0298     0.044     0.8687         998 0.7074 0.5026
+           item_based_cf        0.0574     0.0806   0.0746     0.942     0.8734         998 0.7257 0.4398
+matrix_factorization_svd        0.0425     0.0615   0.0623     0.620     0.8705         998 0.6691 0.4426
+2026-11-10 13:10:03 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:10:03 | INFO    | orchestrator       | PIPELINE RUN STARTED  2026-11-10 13:10:03
+2026-11-10 13:10:03 | INFO    | orchestrator       | Execution order: generate_data -> ingest -> validate -> prepare -> build_features -> train_and_evaluate
+2026-11-10 13:10:03 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:10:03 | INFO    | orchestrator       | >>> STAGE START: generate_data
+2026-11-10 13:10:04 | INFO    | orchestrator       | <<< STAGE DONE : generate_data  (0.34s)
+2026-11-10 13:10:04 | INFO    | orchestrator       | >>> STAGE START: ingest
+2026-11-10 13:10:04 | INFO    | orchestrator       | <<< STAGE DONE : ingest  (0.05s)
+2026-11-10 13:10:04 | INFO    | orchestrator       | >>> STAGE START: validate
+2026-11-10 13:10:04 | INFO    | validation.validate | Validating dimension tables ...
+2026-11-10 13:10:04 | INFO    | validation.validate | [users] schema validation PASSED (rows=1000)
+2026-11-10 13:10:04 | INFO    | validation.validate | [items] schema validation PASSED (rows=500)
+2026-11-10 13:10:04 | INFO    | validation.validate | Validating interactions (row-level) ...
+2026-11-10 13:10:04 | INFO    | validation.validate | Validation done: clean=53084 quarantined=8716 (14.10% bad)
+2026-11-10 13:10:04 | INFO    | orchestrator       | <<< STAGE DONE : validate  (0.21s)
+2026-11-10 13:10:04 | INFO    | orchestrator       | >>> STAGE START: prepare
+2026-11-10 13:10:04 | INFO    | preparation.prepare | Dropped cold users: 53084 -> 53084 rows (min_interactions=5)
+2026-11-10 13:10:04 | INFO    | preparation.prepare | Time-based split: train=42453 test=10631
+2026-11-10 13:10:05 | INFO    | preparation.prepare | Preparation complete. users=1000 items=500 matrix=(1000, 500)
+2026-11-10 13:10:05 | INFO    | orchestrator       | <<< STAGE DONE : prepare  (0.57s)
+2026-11-10 13:10:05 | INFO    | orchestrator       | >>> STAGE START: build_features
+2026-11-10 13:10:05 | INFO    | features.build     | Building features (reference date = 2023-10-14) ...
+2026-11-10 13:10:06 | INFO    | features.build     | Feature store written: users=1000 items=500 interactions=42453
+2026-11-10 13:10:06 | INFO    | orchestrator       | <<< STAGE DONE : build_features  (1.41s)
+2026-11-10 13:10:06 | INFO    | orchestrator       | >>> STAGE START: train_and_evaluate
+2026-11-10 13:10:06 | INFO    | training.train     | Training model: popularity_baseline
+2026-11-10 13:10:07 | INFO    | evaluation.metrics | [popularity_baseline] {'precision@10': 0.0224, 'recall@10': 0.033, 'ndcg@10': 0.0298, 'coverage': 0.044, 'diversity': 0.8687, 'eval_users': 998, 'rmse': 0.7074, 'mae': 0.5026}
+2026-11-10 13:10:07 | INFO    | training.train     | Training model: item_based_cf
+2026-11-10 13:10:10 | INFO    | evaluation.metrics | [item_based_cf] {'precision@10': 0.0574, 'recall@10': 0.0806, 'ndcg@10': 0.0746, 'coverage': 0.942, 'diversity': 0.8734, 'eval_users': 998, 'rmse': 0.7257, 'mae': 0.4398}
+2026-11-10 13:10:10 | INFO    | training.train     | Training model: matrix_factorization_svd
+2026-11-10 13:10:11 | INFO    | evaluation.metrics | [matrix_factorization_svd] {'precision@10': 0.0425, 'recall@10': 0.0615, 'ndcg@10': 0.0623, 'coverage': 0.62, 'diversity': 0.8705, 'eval_users': 998, 'rmse': 0.6691, 'mae': 0.4426}
+2026-11-10 13:10:11 | INFO    | training.train     | Training complete. Results:
+                   model  precision@10  recall@10  ndcg@10  coverage  diversity  eval_users   rmse    mae
+     popularity_baseline        0.0224     0.0330   0.0298     0.044     0.8687         998 0.7074 0.5026
+           item_based_cf        0.0574     0.0806   0.0746     0.942     0.8734         998 0.7257 0.4398
+matrix_factorization_svd        0.0425     0.0615   0.0623     0.620     0.8705         998 0.6691 0.4426
+2026-11-10 13:10:11 | INFO    | orchestrator       | <<< STAGE DONE : train_and_evaluate  (5.29s)
+2026-11-10 13:10:11 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:10:11 | INFO    | orchestrator       | PIPELINE RUN SUCCEEDED  (total 7.88s)
+2026-11-10 13:10:11 | INFO    | orchestrator       |    generate_data          0.34s   [SUCCESS]
+2026-11-10 13:10:11 | INFO    | orchestrator       |    ingest                 0.05s   [SUCCESS]
+2026-11-10 13:10:11 | INFO    | orchestrator       |    validate               0.21s   [SUCCESS]
+2026-11-10 13:10:11 | INFO    | orchestrator       |    prepare                0.57s   [SUCCESS]
+2026-11-10 13:10:11 | INFO    | orchestrator       |    build_features         1.41s   [SUCCESS]
+2026-11-10 13:10:11 | INFO    | orchestrator       |    train_and_evaluate     5.29s   [SUCCESS]
+2026-11-10 13:10:11 | INFO    | orchestrator       | ====================================================================
+2026-11-10 13:10:15 | INFO    | training.train     | Training model: popularity_baseline
+2026-11-10 13:10:16 | INFO    | evaluation.metrics | [popularity_baseline] {'precision@10': 0.0224, 'recall@10': 0.033, 'ndcg@10': 0.0298, 'coverage': 0.044, 'diversity': 0.8687, 'eval_users': 998, 'rmse': 0.7074, 'mae': 0.5026}
+2026-11-10 13:10:16 | INFO    | training.train     | Training model: item_based_cf
+2026-11-10 13:10:19 | INFO    | evaluation.metrics | [item_based_cf] {'precision@10': 0.0574, 'recall@10': 0.0806, 'ndcg@10': 0.0746, 'coverage': 0.942, 'diversity': 0.8734, 'eval_users': 998, 'rmse': 0.7257, 'mae': 0.4398}
+2026-11-10 13:10:19 | INFO    | training.train     | Training model: matrix_factorization_svd
+2026-11-10 13:10:20 | INFO    | evaluation.metrics | [matrix_factorization_svd] {'precision@10': 0.0425, 'recall@10': 0.0615, 'ndcg@10': 0.0623, 'coverage': 0.62, 'diversity': 0.8705, 'eval_users': 998, 'rmse': 0.6691, 'mae': 0.4426}
+2026-11-10 13:10:20 | INFO    | training.train     | Training complete. Results:
+                   model  precision@10  recall@10  ndcg@10  coverage  diversity  eval_users   rmse    mae
+     popularity_baseline        0.0224     0.0330   0.0298     0.044     0.8687         998 0.7074 0.5026
+           item_based_cf        0.0574     0.0806   0.0746     0.942     0.8734         998 0.7257 0.4398
+matrix_factorization_svd        0.0425     0.0615   0.0623     0.620     0.8705         998 0.6691 0.4426
